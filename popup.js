@@ -34,26 +34,21 @@ async function getCurrentGitHubRepo() {
 }
 
 /**
- * 設定されたベースパスを取得する
- */
-async function getBasePath() {
-  const result = await chrome.storage.sync.get(['basePath']);
-  return result.basePath || '';
-}
-
-/**
  * エディタでリポジトリを開く
  */
 async function openInEditor(repoInfo) {
   try {
-    const basePath = await getBasePath();
+    const { basePath, editorScheme } = await chrome.storage.sync.get({
+      basePath: '',
+      editorScheme: 'vscode://file'
+    });
     
     if (!basePath) {
       throw new Error('ベースパスが設定されていません。設定から設定してください。');
     }
     
-    // vscode:// URL スキームを構築
-    const editorUrl = `vscode://file${basePath}${repoInfo.fullName}`;
+    // エディタ URL スキームを構築
+    const editorUrl = `${editorScheme}${basePath}${repoInfo.fullName}`;
     
     // URL スキームを開く
     window.open(editorUrl, '_blank');
@@ -62,31 +57,26 @@ async function openInEditor(repoInfo) {
     showMessage('エディタで開きました', 'success');
     
   } catch (error) {
-    showError(error.message);
+    showMessage(error.message, 'error');
   }
-}
-
-/**
- * エラーメッセージを表示する
- */
-function showError(message) {
-  const errorElement = document.getElementById('error');
-  errorElement.textContent = message;
-  errorElement.style.display = 'block';
 }
 
 /**
  * メッセージを表示する
  */
 function showMessage(message, type = 'info') {
-  const errorElement = document.getElementById('error');
-  errorElement.textContent = message;
-  errorElement.style.display = 'block';
-  
+  const messageElement = document.getElementById('error');
+  messageElement.textContent = message;
+  messageElement.style.display = 'block';
+
   if (type === 'success') {
-    errorElement.style.backgroundColor = '#f0f9ff';
-    errorElement.style.borderColor = '#0969da';
-    errorElement.style.color = '#0969da';
+    messageElement.style.backgroundColor = '#f0f9ff';
+    messageElement.style.borderColor = '#0969da';
+    messageElement.style.color = '#0969da';
+  } else {
+    messageElement.style.backgroundColor = '';
+    messageElement.style.borderColor = '';
+    messageElement.style.color = '';
   }
 }
 
@@ -103,38 +93,26 @@ function openSettings() {
  * UI を初期化する
  */
 async function initializeUI() {
+  document.getElementById('openSettings').addEventListener('click', openSettings);
+
   try {
-    // ローディング表示
     document.getElementById('loading').style.display = 'block';
     document.getElementById('content').style.display = 'none';
-    
-    // GitHub リポジトリ情報を取得
+
     const repoInfo = await getCurrentGitHubRepo();
-    
-    // UI に情報を表示
+
     document.getElementById('repoName').textContent = repoInfo.fullName;
     document.getElementById('repoUrl').textContent = repoInfo.url;
-    
-    // ローディングを非表示にしてコンテンツを表示
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
-    
-    // イベントリスナーを設定
+
     document.getElementById('openInEditor').addEventListener('click', () => {
       openInEditor(repoInfo);
     });
-    
-    document.getElementById('openSettings').addEventListener('click', openSettings);
-    
   } catch (error) {
-    // エラーが発生した場合
+    showMessage(error.message, 'error');
+    document.getElementById('openInEditor').disabled = true;
+  } finally {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('content').style.display = 'block';
-    showError(error.message);
-    
-    // 設定ボタンのみ有効にする
-    document.getElementById('openInEditor').disabled = true;
-    document.getElementById('openSettings').addEventListener('click', openSettings);
   }
 }
 
