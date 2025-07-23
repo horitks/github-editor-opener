@@ -1,4 +1,4 @@
-// settings.js - GitHub GHQ Opener の設定画面機能
+// settings.js - GitHub Editor Opener の設定画面機能
 
 /**
  * 設定をロードして UI に反映する
