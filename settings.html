@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub GHQ Opener - 設定</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #fafbfc;
+            color: #24292e;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(27, 31, 35, 0.12);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #24292e;
+        }
+        
+        .header p {
+            margin: 8px 0 0 0;
+            color: #586069;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #24292e;
+        }
+        
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #0969da;
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+        }
+        
+        .form-help {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #656d76;
+            line-height: 1.4;
+        }
+        
+        .form-example {
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 8px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 12px;
+            color: #24292e;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #0969da;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0860ca;
+        }
+        
+        .btn-secondary {
+            background-color: #f6f8fa;
+            color: #24292e;
+            border: 1px solid #d0d7de;
+            margin-left: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .message.success {
+            background-color: #dafbe1;
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+        
+        .message.error {
+            background-color: #ffe6e6;
+            border: 1px solid #d73a49;
+            color: #d73a49;
+        }
+        
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GitHub GHQ Opener</h1>
+            <p>設定</p>
+        </div>
+        
+        <div id="message" class="message"></div>
+        
+        <form id="settingsForm">
+            <div class="form-group">
+                <label for="basePath">ベースパス</label>
+                <input type="text" id="basePath" name="basePath" placeholder="/Users/username/src/github.com/">
+                <div class="form-help">
+                    GitHub リポジトリが配置されているベースパスを設定してください。<br>
+                    例: /Users/username/src/github.com/ の場合、リポジトリは /Users/username/src/github.com/owner/repository に配置されている必要があります。
+                </div>
+                <div class="form-example">
+                    例: /Users/thori/src/github.com/
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="editorScheme">エディタ URL スキーム</label>
+                <input type="text" id="editorScheme" name="editorScheme" placeholder="vscode://file" value="vscode://file">
+                <div class="form-help">
+                    使用するエディタの URL スキームを指定してください。<br>
+                    Visual Studio Code: vscode://file<br>
+                    その他のエディタでも対応している場合があります。
+                </div>
+                <div class="form-example">
+                    例: vscode://file
+                </div>
+            </div>
+        </form>
+        
+        <div class="actions">
+            <button type="submit" form="settingsForm" class="btn btn-primary">
+                設定を保存
+            </button>
+            <button type="button" id="resetBtn" class="btn btn-secondary">
+                リセット
+            </button>
+        </div>
+    </div>
+    
+    <script src="settings.js"></script>
+</body>
+</html>
