@@ -36,10 +36,10 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 
 - **ベースパス**: `/Users/{username}/src/github.com/`
 - **エディタ URL スキーム**: `vscode://file`
-- **GitHub URL**: `https://github.com/{username}/github-ghq-opener`
+- **GitHub URL**: `https://github.com/{username}/github-editor-opener`
 
-上記の設定で `https://github.com/{username}/github-ghq-opener` を開いている場合、  
-`vscode://file/Users/{username}/src/github.com/{username}/github-ghq-opener` が実行されます。
+上記の設定で `https://github.com/{username}/github-editor-opener` を開いている場合、  
+`vscode://file/Users/{username}/src/github.com/{username}/github-editor-opener` が実行されます。
 
 ## 必要な権限
 
