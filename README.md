@@ -1,4 +1,4 @@
-# GitHub GHQ Opener
+# GitHub Editor Opener
 
 GitHub のリポジトリページから、ローカルエディタでリポジトリを開くことができる Chrome 拡張機能です。
 
@@ -22,7 +22,7 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 1. 拡張機能をインストール後、任意の GitHub ページで拡張機能のアイコンをクリック
 2. 「設定」ボタンをクリックして設定画面を開く
 3. 以下の設定を行う：
-   - **ベースパス**: リポジトリが配置されているローカルのベースパス（例: `/Users/username/src/github.com/`）
+   - **ベースパス**: リポジトリが配置されているローカルのベースパス（例: `/Users/{username}/src/github.com/`）
    - **エディタ URL スキーム**: 使用するエディタの URL スキーム（例: `vscode://file`）
 
 ### リポジトリを開く
@@ -34,12 +34,12 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 
 ## 設定例
 
-- **ベースパス**: `/Users/thori/src/github.com/`
+- **ベースパス**: `/Users/{username}/src/github.com/`
 - **エディタ URL スキーム**: `vscode://file`
-- **GitHub URL**: `https://github.com/horitks/github-ghq-opener`
+- **GitHub URL**: `https://github.com/{username}/github-ghq-opener`
 
-上記の設定で `https://github.com/horitks/github-ghq-opener` を開いている場合、  
-`vscode://file/Users/thori/src/github.com/horitks/github-ghq-opener` が実行されます。
+上記の設定で `https://github.com/{username}/github-ghq-opener` を開いている場合、  
+`vscode://file/Users/{username}/src/github.com/{username}/github-ghq-opener` が実行されます。
 
 ## 必要な権限
 

@@ -1,4 +1,4 @@
-// popup.js - GitHub GHQ Opener のポップアップ機能
+// popup.js - GitHub Editor Opener のポップアップ機能
 
 /**
  * GitHub のリポジトリ情報を現在のタブから取得する

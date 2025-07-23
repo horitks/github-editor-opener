@@ -1,10 +1,10 @@
 {
-  "name": "GitHub GHQ Opener",
+  "name": "GitHub Editor Opener",
   "version": "1.0",
   "description": "GitHub のリポジトリページから、ローカルエディタでリポジトリを開く Chrome 拡張",
   "manifest_version": 3,
   "action": {
-    "default_title": "GitHub GHQ Opener",
+    "default_title": "GitHub Editor Opener",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
