@@ -2,6 +2,7 @@
   "name": "GitHub Editor Opener",
   "version": "1.0",
   "description": "GitHub のリポジトリページから、ローカルエディタでリポジトリを開く Chrome 拡張",
+  "author": "horitks",
   "manifest_version": 3,
   "action": {
     "default_title": "GitHub Editor Opener",
