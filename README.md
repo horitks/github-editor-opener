@@ -77,6 +77,14 @@ With the above configuration, when opening `https://github.com/{username}/github
 └── README.md              # This file
 ```
 
+### Icons
+
+The extension icons are original designs created specifically for this project, featuring:
+- GitHub-inspired design elements
+- Code editor representation with syntax highlighting
+- Arrow showing the connection flow from GitHub to local editor
+- Available in multiple sizes (16px, 32px, 48px, 128px)
+
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -155,6 +163,14 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 │   └── icon128.png
 └── README.md              # このファイル
 ```
+
+### アイコン
+
+拡張機能のアイコンは、このプロジェクト専用に作成されたオリジナルデザインです：
+- GitHubにインスパイアされたデザイン要素
+- シンタックスハイライト付きのコードエディタ表現
+- GitHubからローカルエディタへの接続フローを示す矢印
+- 複数サイズに対応（16px、32px、48px、128px）
 
 ### ライセンス
 
