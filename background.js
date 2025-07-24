@@ -3,7 +3,7 @@
 // utils.js から共通関数をインポート
 importScripts('utils.js');
 
-const { extractRepoInfo, buildEditorUrl, validateSettings } = window.EditorUtils;
+const { extractRepoInfo, buildEditorUrl, validateSettings } = self.EditorUtils;
 
 /**
  * 通知を表示する

@@ -41,17 +41,11 @@ const testCases = [
     description: 'GitHub URLからリポジトリ情報を抽出できる',
     expected: 'owner/repo',
     test: (url = 'https://github.com/owner/repo') => {
-      // utils.jsのextractRepoInfo関数をテスト
+      // utils.jsから実際の関数をインポートしてテスト
       try {
-        const utilsPath = path.join(__dirname, 'utils.js');
-        if (!fs.existsSync(utilsPath)) return null;
-        
-        // 簡易的なテスト実装（utils.jsの関数ロジックをモック）
-        const urlObj = new URL(url);
-        if (!urlObj.hostname.includes('github.com')) return null;
-        const pathParts = urlObj.pathname.split('/').filter(part => part);
-        if (pathParts.length < 2) return null;
-        return `${pathParts[0]}/${pathParts[1]}`;
+        const { extractRepoInfo } = require('./utils.js');
+        const repoInfo = extractRepoInfo(url);
+        return repoInfo ? repoInfo.fullName : null;
       } catch {
         return null;
       }
@@ -63,11 +57,9 @@ const testCases = [
     expected: null, 
     test: (url = 'https://example.com') => {
       try {
-        const urlObj = new URL(url);
-        if (!urlObj.hostname.includes('github.com')) return null;
-        const pathParts = urlObj.pathname.split('/').filter(part => part);
-        if (pathParts.length < 2) return null;
-        return `${pathParts[0]}/${pathParts[1]}`;
+        const { extractRepoInfo } = require('./utils.js');
+        const repoInfo = extractRepoInfo(url);
+        return repoInfo ? repoInfo.fullName : null;
       } catch {
         return null;
       }
@@ -84,6 +76,40 @@ const testCases = [
         return manifestContent.permissions && manifestContent.permissions.includes('notifications');
       } catch {
         return false;
+      }
+    }
+  },
+  {
+    name: 'エディタURL構築が正しく動作する',
+    description: 'buildEditorUrl関数の動作確認',
+    expected: 'vscode://file/path/to/repos/owner/repo',
+    test: () => {
+      try {
+        const { buildEditorUrl } = require('./utils.js');
+        const repoInfo = { fullName: 'owner/repo' };
+        const settings = {
+          editorScheme: 'vscode://file',
+          basePath: '/path/to/repos/',
+          openInNewWindow: false
+        };
+        return buildEditorUrl(repoInfo, settings);
+      } catch {
+        return null;
+      }
+    }
+  },
+  {
+    name: '設定検証が正しく動作する',
+    description: 'validateSettings関数の動作確認',
+    expected: false,
+    test: () => {
+      try {
+        const { validateSettings } = require('./utils.js');
+        const emptySettings = { basePath: '' };
+        const validation = validateSettings(emptySettings);
+        return validation.isValid;
+      } catch {
+        return null;
       }
     }
   }

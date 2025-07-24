@@ -89,11 +89,17 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 // グローバル関数として定義（Chrome拡張のコンテキストでは必要）
-if (typeof window !== 'undefined') {
-  window.EditorUtils = {
-    EDITOR_CONFIG,
-    extractRepoInfo,
-    buildEditorUrl,
-    validateSettings
-  };
-}
+// Service Workerではwindowではなくselfを使用
+const globalThis = (function() {
+  if (typeof window !== 'undefined') return window;
+  if (typeof self !== 'undefined') return self;
+  if (typeof global !== 'undefined') return global;
+  throw new Error('Unable to locate global object');
+})();
+
+globalThis.EditorUtils = {
+  EDITOR_CONFIG,
+  extractRepoInfo,
+  buildEditorUrl,
+  validateSettings
+};
