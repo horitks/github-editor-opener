@@ -13,6 +13,7 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 - Open extension popup from GitHub repository pages
 - Combine configured base path with repository name to open in local editor
 - Configure base path and editor URL scheme in settings page
+- **Keyboard shortcut support**: Use `Ctrl+Shift+K` (Windows/Linux) or `Command+Shift+K` (Mac) to quickly open repository in editor
 
 ### Installation
 
@@ -33,10 +34,16 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 
 #### Opening a Repository
 
+**Method 1: Using the Extension Icon**
 1. Open a GitHub repository page
 2. Click the extension icon
 3. Click "Open in Editor" button
 4. The local repository will open in your configured editor
+
+**Method 2: Using Keyboard Shortcut**
+1. Open a GitHub repository page
+2. Press `Ctrl+Shift+K` (Windows/Linux) or `Command+Shift+K` (Mac)
+3. The local repository will open directly in your configured editor
 
 ### Configuration Example
 
@@ -92,6 +99,7 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 - GitHub のリポジトリページで拡張機能のポップアップを開く
 - 設定したベースパスとリポジトリ名を組み合わせて、ローカルのエディタで開く
 - 設定画面でベースパスとエディタの URL スキームを設定可能
+- **キーボードショートカット対応**: `Ctrl+Shift+K`（Windows/Linux）または `Command+Shift+K`（Mac）でリポジトリを素早くエディタで開く
 
 ### インストール方法
 
@@ -112,10 +120,16 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 
 #### リポジトリを開く
 
+**方法1: 拡張機能のアイコンを使用**
 1. GitHub のリポジトリページを開く
 2. 拡張機能のアイコンをクリック
 3. 「エディタで開く」ボタンをクリック
 4. 設定されたエディタでローカルのリポジトリが開かれる
+
+**方法2: キーボードショートカットを使用**
+1. GitHub のリポジトリページを開く
+2. `Ctrl+Shift+K`（Windows/Linux）または `Command+Shift+K`（Mac）を押す
+3. 設定されたエディタでローカルのリポジトリが直接開かれる
 
 ### 設定例
 

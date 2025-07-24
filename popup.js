@@ -1,31 +1,100 @@
 // popup.js - GitHub Editor Opener のポップアップ機能
 
 /**
+ * エディタURL構築の設定定数
+ */
+const EDITOR_CONFIG = {
+  DEFAULT_SCHEME: 'vscode://file',
+  VSCODE_NEW_WINDOW_PARAM: 'windowId=_blank'
+};
+
+/**
+ * GitHub URL からリポジトリ情報を抽出する
+ * @param {string} url - GitHub URL
+ * @returns {Object|null} リポジトリ情報 または null
+ */
+function extractRepoInfo(url) {
+  try {
+    const urlObj = new URL(url);
+    
+    if (!urlObj.hostname.includes('github.com')) {
+      return null;
+    }
+    
+    const pathParts = urlObj.pathname.split('/').filter(part => part);
+    
+    if (pathParts.length < 2) {
+      return null;
+    }
+    
+    return {
+      owner: pathParts[0],
+      repo: pathParts[1],
+      fullName: `${pathParts[0]}/${pathParts[1]}`
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * エディタURL を構築する
+ * @param {Object} repoInfo - リポジトリ情報
+ * @param {Object} settings - 設定
+ * @returns {string} エディタURL
+ */
+function buildEditorUrl(repoInfo, settings) {
+  const { editorScheme = EDITOR_CONFIG.DEFAULT_SCHEME, basePath = '', openInNewWindow = false } = settings;
+  
+  let editorUrl = `${editorScheme}${basePath}${repoInfo.fullName}`;
+  
+  // VSCodeの場合、新しいウィンドウで開くオプションがあれば追加
+  if (editorScheme.startsWith('vscode://') && openInNewWindow) {
+    const separator = editorUrl.includes('?') ? '&' : '?';
+    editorUrl += `${separator}${EDITOR_CONFIG.VSCODE_NEW_WINDOW_PARAM}`;
+  }
+  
+  return editorUrl;
+}
+
+/**
+ * 設定を検証する
+ * @param {Object} settings - 設定
+ * @returns {Object} 検証結果 { isValid: boolean, error?: string }
+ */
+function validateSettings(settings) {
+  if (!settings.basePath) {
+    return {
+      isValid: false,
+      error: 'ベースパスが設定されていません。設定から設定してください。'
+    };
+  }
+  
+  return { isValid: true };
+}
+
+/**
  * GitHub のリポジトリ情報を現在のタブから取得する
  */
 async function getCurrentGitHubRepo() {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
-    if (!tab.url || !tab.url.includes('github.com')) {
+    if (!tab.url) {
+      throw new Error('有効なページが見つかりません');
+    }
+    
+    if (!tab.url.includes('github.com')) {
       throw new Error('GitHub のページではありません');
     }
     
-    // GitHub URL からリポジトリ情報を抽出
-    const url = new URL(tab.url);
-    const pathParts = url.pathname.split('/').filter(part => part);
-    
-    if (pathParts.length < 2) {
+    const repoInfo = extractRepoInfo(tab.url);
+    if (!repoInfo) {
       throw new Error('リポジトリページではありません');
     }
     
-    const owner = pathParts[0];
-    const repo = pathParts[1];
-    
     return {
-      owner,
-      repo,
-      fullName: `${owner}/${repo}`,
+      ...repoInfo,
       url: tab.url
     };
   } catch (error) {
@@ -38,17 +107,20 @@ async function getCurrentGitHubRepo() {
  */
 async function openInEditor(repoInfo) {
   try {
-    const { basePath, editorScheme } = await chrome.storage.sync.get({
+    const settings = await chrome.storage.sync.get({
       basePath: '',
-      editorScheme: 'vscode://file'
+      editorScheme: 'vscode://file',
+      openInNewWindow: false
     });
     
-    if (!basePath) {
-      throw new Error('ベースパスが設定されていません。設定から設定してください。');
+    // 設定を検証
+    const validation = validateSettings(settings);
+    if (!validation.isValid) {
+      throw new Error(validation.error);
     }
     
-    // エディタ URL スキームを構築
-    const editorUrl = `${editorScheme}${basePath}${repoInfo.fullName}`;
+    // エディタ URL を構築
+    const editorUrl = buildEditorUrl(repoInfo, settings);
     
     // URL スキームを開く
     window.open(editorUrl, '_blank');

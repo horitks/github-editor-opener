@@ -1,6 +1,6 @@
 {
   "name": "GitHub Editor Opener",
-  "version": "1.0",
+  "version": "1.1.0",
   "description": "GitHub のリポジトリページから、ローカルエディタでリポジトリを開く Chrome 拡張",
   "author": "horitks",
   "manifest_version": 3,
@@ -16,8 +16,21 @@
   },
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "notifications"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "open-editor": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "エディタでGitHubリポジトリを開く"
+    }
+  },
   "host_permissions": [
     "https://github.com/*"
   ],
