@@ -77,14 +77,6 @@ With the above configuration, when opening `https://github.com/{username}/github
 └── README.md              # This file
 ```
 
-### Icons
-
-The extension icons feature a clean, modern design with two key elements:
-- **Browser window**: Represents GitHub (with traffic light dots and URL bar)
-- **Code brackets `<>`**: Represents the local code editor
-- Minimalist design using GitHub's color palette
-- Available in multiple sizes (16px, 32px, 48px, 128px)
-
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -163,14 +155,6 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 │   └── icon128.png
 └── README.md              # このファイル
 ```
-
-### アイコン
-
-拡張機能のアイコンは、2つの主要要素を持つクリーンでモダンなデザインです：
-- **ブラウザウィンドウ**: GitHubを表現（信号機ドットとURLバー付き）
-- **コードブラケット `<>`**: ローカルコードエディタを表現
-- GitHubのカラーパレットを使用したミニマルデザイン
-- 複数サイズに対応（16px、32px、48px、128px）
 
 ### ライセンス
 
