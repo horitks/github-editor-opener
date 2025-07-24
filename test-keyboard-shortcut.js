@@ -245,11 +245,9 @@ function checkRepoExtraction() {
   try {
     const backgroundPath = path.join(__dirname, 'background.js');
     const backgroundContent = fs.readFileSync(backgroundPath, 'utf8');
-    const utilsPath = path.join(__dirname, 'utils.js');
-    const utilsExists = fs.existsSync(utilsPath);
     
-    // background.jsでextractRepoInfo関数を使用しているか、またはutils.jsが存在するかをチェック
-    return backgroundContent.includes('extractRepoInfo') || utilsExists;
+    // background.jsでextractRepoInfo関数が定義されているかをチェック
+    return backgroundContent.includes('function extractRepoInfo');
   } catch {
     return false;
   }
