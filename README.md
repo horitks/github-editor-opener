@@ -79,10 +79,10 @@ With the above configuration, when opening `https://github.com/{username}/github
 
 ### Icons
 
-The extension icons are original designs created specifically for this project, featuring:
-- GitHub-inspired design elements
-- Code editor representation with syntax highlighting
-- Arrow showing the connection flow from GitHub to local editor
+The extension icons feature a clean, modern design with two key elements:
+- **Browser window**: Represents GitHub (with traffic light dots and URL bar)
+- **Code brackets `<>`**: Represents the local code editor
+- Minimalist design using GitHub's color palette
 - Available in multiple sizes (16px, 32px, 48px, 128px)
 
 ### License
@@ -166,10 +166,10 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 
 ### アイコン
 
-拡張機能のアイコンは、このプロジェクト専用に作成されたオリジナルデザインです：
-- GitHubにインスパイアされたデザイン要素
-- シンタックスハイライト付きのコードエディタ表現
-- GitHubからローカルエディタへの接続フローを示す矢印
+拡張機能のアイコンは、2つの主要要素を持つクリーンでモダンなデザインです：
+- **ブラウザウィンドウ**: GitHubを表現（信号機ドットとURLバー付き）
+- **コードブラケット `<>`**: ローカルコードエディタを表現
+- GitHubのカラーパレットを使用したミニマルデザイン
 - 複数サイズに対応（16px、32px、48px、128px）
 
 ### ライセンス

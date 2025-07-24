@@ -1,34 +1,36 @@
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background circle -->
-  <circle cx="64" cy="64" r="60" fill="#24292e" stroke="#f6f8fa" stroke-width="4"/>
+  <!-- Background -->
+  <rect width="128" height="128" rx="24" fill="#24292f"/>
   
-  <!-- GitHub-like octagon shape (left side) -->
-  <path d="M30 45 L30 35 Q30 30 35 30 L45 30 Q50 30 50 35 L50 45 Q50 50 45 50 L35 50 Q30 50 30 45 Z" fill="#f6f8fa"/>
+  <!-- Browser window (left side) -->
+  <rect x="20" y="35" width="42" height="32" rx="6" fill="#f6f8fa" stroke="none"/>
   
-  <!-- Code brackets (center-left) -->
-  <path d="M20 64 L28 58 L28 62 L24 64 L28 66 L28 70 L20 64 Z" fill="#f78166" stroke="#f78166" stroke-width="1"/>
-  <path d="M32 58 L40 64 L32 70 L30 68 L36 64 L30 60 L32 58 Z" fill="#f78166" stroke="#f78166" stroke-width="1"/>
+  <!-- Browser header bar -->
+  <rect x="20" y="35" width="42" height="8" rx="6" fill="#e1e4e8"/>
   
-  <!-- Arrow pointing right -->
-  <path d="M55 60 L75 60 L75 56 L85 64 L75 72 L75 68 L55 68 Z" fill="#238636" stroke="#238636" stroke-width="1"/>
+  <!-- Browser dots -->
+  <circle cx="26" cy="39" r="1.5" fill="#ff5f56"/>
+  <circle cx="31" cy="39" r="1.5" fill="#ffbd2e"/>
+  <circle cx="36" cy="39" r="1.5" fill="#27ca3f"/>
   
-  <!-- Editor window (right side) -->
-  <rect x="90" y="45" width="25" height="20" rx="2" fill="#f6f8fa" stroke="#656d76" stroke-width="1"/>
+  <!-- URL bar in browser -->
+  <rect x="24" y="47" width="34" height="4" rx="2" fill="#e1e4e8"/>
+  <rect x="26" y="48.5" width="8" height="1" rx="0.5" fill="#586069"/>
   
-  <!-- Editor window header -->
-  <rect x="90" y="45" width="25" height="4" rx="2" fill="#656d76"/>
+  <!-- Content area -->
+  <rect x="24" y="54" width="34" height="8" rx="1" fill="#fafbfc"/>
+  <rect x="26" y="56" width="12" height="1" rx="0.5" fill="#d0d7de"/>
+  <rect x="26" y="58" width="8" height="1" rx="0.5" fill="#d0d7de"/>
   
-  <!-- Editor window dots -->
-  <circle cx="93" cy="47" r="0.8" fill="#ff6b6b"/>
-  <circle cx="96" cy="47" r="0.8" fill="#feca57"/>
-  <circle cx="99" cy="47" r="0.8" fill="#48ca00"/>
+  <!-- Code brackets (right side) - modern style -->
+  <g transform="translate(66, 64)">
+    <!-- Left bracket < -->
+    <path d="M0 0 L-8 -12 L-6 -14 L4 -4 L4 4 L-6 14 L-8 12 Z" fill="#0969da" stroke="none"/>
+    
+    <!-- Right bracket > -->
+    <path d="M12 0 L20 -12 L18 -14 L8 -4 L8 4 L18 14 L20 12 Z" fill="#0969da" stroke="none"/>
+  </g>
   
-  <!-- Code lines in editor -->
-  <rect x="92" y="52" width="8" height="1" fill="#0969da"/>
-  <rect x="92" y="55" width="12" height="1" fill="#656d76"/>
-  <rect x="92" y="58" width="6" height="1" fill="#d1242f"/>
-  <rect x="92" y="61" width="10" height="1" fill="#656d76"/>
-  
-  <!-- Connection line -->
-  <path d="M50 40 Q64 25 90 40" stroke="#8b949e" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <!-- Subtle connection indicator -->
+  <circle cx="64" cy="86" r="2" fill="#238636" opacity="0.8"/>
 </svg>
