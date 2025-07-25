@@ -17,10 +17,6 @@ const PRESET_TYPES = {
   GUI: 'gui',
   COMMAND: 'command',
   TOOLBOX: 'toolbox'
-  // Terminal系は技術的制限により無効化
-  // TERMINAL: 'terminal',
-  // TERMINAL_EDITOR: 'terminal_editor',
-  // COPY_COMMAND: 'copy_command'
 };
 
 /**
@@ -64,31 +60,6 @@ class EditorPresetManager {
         type: PRESET_TYPES.TOOLBOX,
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
       }
-      // Terminal系プリセットは技術的制限により無効化
-      // Chrome拡張ではURL schemeでのTerminal起動ができないため
-      /*
-      terminal_mac: {
-        name: 'Terminal (macOS)',
-        description: '技術的制限により利用不可: Chrome拡張ではTerminal起動URL schemeが存在しません',
-        type: PRESET_TYPES.UNAVAILABLE,
-        platform: PLATFORMS.DARWIN,
-        supported: false
-      },
-      iterm2: {
-        name: 'iTerm2',
-        description: '技術的制限により利用不可: セキュリティ上の理由で2011年に機能削除済み',
-        type: PRESET_TYPES.UNAVAILABLE,
-        platform: PLATFORMS.DARWIN,
-        supported: false
-      },
-      nvim_terminal: {
-        name: 'Neovim in Terminal',
-        description: '技術的制限により利用不可: Terminal起動が前提のため利用できません',
-        type: PRESET_TYPES.UNAVAILABLE,
-        platform: PLATFORMS.DARWIN,
-        supported: false
-      }
-      */
     };
   }
 
@@ -164,8 +135,6 @@ class EditorPresetManager {
     return preset.command.replace('{path}', fullPath);
   }
 
-  // コマンドコピー機能は技術的制限により削除
-  // isCopyCommandType() メソッドは利用不可
 
   /**
    * 現在のプラットフォームを取得する
