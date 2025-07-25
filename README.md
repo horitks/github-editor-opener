@@ -84,9 +84,6 @@ With the above configuration, when opening `https://github.com/{username}/github
 └── README.md              # This file
 ```
 
-### License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -170,6 +167,3 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 └── README.md              # このファイル
 ```
 
-### ライセンス
-
-このプロジェクトは MIT ライセンスの下で公開されています。詳細は [LICENSE](LICENSE) ファイルを参照してください。
