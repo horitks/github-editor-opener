@@ -135,7 +135,14 @@ function initializeEditorPresets() {
     presets.forEach(preset => {
       const option = document.createElement('option');
       option.value = preset.id;
-      option.textContent = `${preset.name} (${preset.type})`;
+      
+      // プリセットタイプに応じた表示
+      if (preset.type === 'copy_command') {
+        option.textContent = `${preset.name}`;
+      } else {
+        option.textContent = `${preset.name} (${preset.type})`;
+      }
+      
       select.appendChild(option);
     });
     
@@ -158,16 +165,22 @@ function handlePresetChange(event) {
     // カスタム設定の場合は入力を有効にする
     editorSchemeInput.readOnly = false;
     editorSchemeInput.style.backgroundColor = '';
+    editorSchemeInput.placeholder = 'vscode://file';
   } else {
     try {
       const presetManager = new EditorPresetManager();
       const preset = presetManager.getPreset(presetId);
       
       // プリセットの値を設定
-      if (preset.scheme) {
+      if (preset.type === 'copy_command') {
+        editorSchemeInput.value = `[コマンドコピー] ${preset.description}`;
+        editorSchemeInput.placeholder = 'コマンドをクリップボードにコピーします';
+      } else if (preset.scheme) {
         editorSchemeInput.value = preset.scheme;
+        editorSchemeInput.placeholder = preset.scheme;
       } else if (preset.command) {
         editorSchemeInput.value = `command:${preset.command}`;
+        editorSchemeInput.placeholder = 'コマンド実行';
       }
       
       // 読み取り専用にする

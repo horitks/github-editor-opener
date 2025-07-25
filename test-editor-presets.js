@@ -124,6 +124,27 @@ function testTerminalプリセットでコマンドを構築できる() {
 }
 
 /**
+ * テスト: コマンドコピータイプを判定できる
+ */
+function testコマンドコピータイプを判定できる() {
+  try {
+    const presetManager = new EditorPresetManager();
+    
+    const isTerminalCopyType = presetManager.isCopyCommandType('terminal_mac');
+    const isVSCodeCopyType = presetManager.isCopyCommandType('vscode');
+    
+    const passed = isTerminalCopyType === true && isVSCodeCopyType === false;
+    
+    logTestResult('コマンドコピータイプを判定できる', passed);
+    if (!passed) {
+      console.log(`  terminal_mac: ${isTerminalCopyType}, vscode: ${isVSCodeCopyType}`);
+    }
+  } catch (error) {
+    logTestResult('コマンドコピータイプを判定できる', false, error);
+  }
+}
+
+/**
  * テスト: 現在のOS向けプリセットのみを取得できる
  */
 function test現在のOS向けプリセットのみを取得できる() {
@@ -169,6 +190,7 @@ function runAllTests() {
   test利用可能なプリセット一覧を取得できる();
   testプリセットからエディタURLを構築できる();
   testTerminalプリセットでコマンドを構築できる();
+  testコマンドコピータイプを判定できる();
   test現在のOS向けプリセットのみを取得できる();
   test無効なプリセットIDでエラーが発生する();
   

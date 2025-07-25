@@ -18,7 +18,8 @@ const PRESET_TYPES = {
   COMMAND: 'command',
   TOOLBOX: 'toolbox',
   TERMINAL: 'terminal',
-  TERMINAL_EDITOR: 'terminal_editor'
+  TERMINAL_EDITOR: 'terminal_editor',
+  COPY_COMMAND: 'copy_command'
 };
 
 /**
@@ -63,22 +64,28 @@ class EditorPresetManager {
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
       },
       terminal_mac: {
-        name: 'Terminal (macOS)',
+        name: 'Terminal (macOS) - コマンドコピー',
         command: 'osascript -e \'tell application "Terminal" to do script "cd {path}"\'',
-        type: PRESET_TYPES.TERMINAL,
-        platform: PLATFORMS.DARWIN
+        type: PRESET_TYPES.COPY_COMMAND,
+        platform: PLATFORMS.DARWIN,
+        supported: SUPPORT_STATUS.COMMAND_LINE,
+        description: 'Terminalアプリでディレクトリを開くAppleScriptコマンドをクリップボードにコピーします'
       },
       iterm2: {
-        name: 'iTerm2',
+        name: 'iTerm2 - コマンドコピー',
         command: 'osascript -e \'tell application "iTerm" to create window with default profile command "cd {path}"\'',
-        type: PRESET_TYPES.TERMINAL,
-        platform: PLATFORMS.DARWIN
+        type: PRESET_TYPES.COPY_COMMAND,
+        platform: PLATFORMS.DARWIN,
+        supported: SUPPORT_STATUS.COMMAND_LINE,
+        description: 'iTerm2でディレクトリを開くAppleScriptコマンドをクリップボードにコピーします'
       },
       nvim_terminal: {
-        name: 'Neovim in Terminal',
+        name: 'Neovim in Terminal - コマンドコピー',
         command: 'osascript -e \'tell application "Terminal" to do script "cd {path} && nvim ."\'',
-        type: PRESET_TYPES.TERMINAL_EDITOR,
-        platform: PLATFORMS.DARWIN
+        type: PRESET_TYPES.COPY_COMMAND,
+        platform: PLATFORMS.DARWIN,
+        supported: SUPPORT_STATUS.COMMAND_LINE,
+        description: 'TerminalでNeovimを起動するAppleScriptコマンドをクリップボードにコピーします'
       }
     };
   }
@@ -153,6 +160,16 @@ class EditorPresetManager {
 
     const fullPath = `${settings.basePath}${repoInfo.fullName}`;
     return preset.command.replace('{path}', fullPath);
+  }
+
+  /**
+   * プリセットがコマンドコピータイプかを判定する
+   * @param {string} presetId - プリセットID
+   * @returns {boolean} コマンドコピータイプの場合true
+   */
+  isCopyCommandType(presetId) {
+    const preset = this.getPreset(presetId);
+    return preset.type === PRESET_TYPES.COPY_COMMAND;
   }
 
   /**
