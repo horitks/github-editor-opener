@@ -5,7 +5,7 @@
  */
 async function loadSettings() {
   try {
-    const result = await chrome.storage.sync.get(['basePath', 'editorScheme']);
+    const result = await chrome.storage.sync.get(['basePath', 'editorScheme', 'editorPreset']);
     
     // ベースパスを設定
     const basePathInput = document.getElementById('basePath');
@@ -13,13 +13,23 @@ async function loadSettings() {
       basePathInput.value = result.basePath;
     }
     
-    // エディタスキームを設定
-    const editorSchemeInput = document.getElementById('editorScheme');
-    if (result.editorScheme) {
-      editorSchemeInput.value = result.editorScheme;
-    } else {
-      // デフォルト値を設定
-      editorSchemeInput.value = 'vscode://file';
+    // エディタプリセットを設定
+    const presetSelect = document.getElementById('editorPreset');
+    if (result.editorPreset) {
+      presetSelect.value = result.editorPreset;
+      // プリセット変更イベントを発火してUI更新
+      presetSelect.dispatchEvent(new Event('change'));
+    }
+    
+    // エディタスキームを設定（プリセットが設定されていない場合のみ）
+    if (!result.editorPreset) {
+      const editorSchemeInput = document.getElementById('editorScheme');
+      if (result.editorScheme) {
+        editorSchemeInput.value = result.editorScheme;
+      } else {
+        // デフォルト値を設定
+        editorSchemeInput.value = 'vscode://file';
+      }
     }
     
   } catch (error) {
@@ -34,6 +44,7 @@ async function saveSettings(formData) {
   try {
     const basePath = formData.get('basePath').trim();
     const editorScheme = formData.get('editorScheme').trim();
+    const editorPreset = formData.get('editorPreset');
     
     // 入力値の検証
     if (!basePath) {
@@ -50,7 +61,8 @@ async function saveSettings(formData) {
     // 設定を保存
     await chrome.storage.sync.set({
       basePath: normalizedBasePath,
-      editorScheme: editorScheme
+      editorScheme: editorScheme,
+      editorPreset: editorPreset
     });
     
     showMessage('設定を保存しました', 'success');
@@ -111,9 +123,70 @@ function handleResetClick() {
 }
 
 /**
+ * エディタプリセットの選択肢を初期化する
+ */
+function initializeEditorPresets() {
+  try {
+    const presetManager = new EditorPresetManager();
+    const presets = presetManager.getPresetsForCurrentPlatform();
+    const select = document.getElementById('editorPreset');
+    
+    // プリセットオプションを追加
+    presets.forEach(preset => {
+      const option = document.createElement('option');
+      option.value = preset.id;
+      option.textContent = `${preset.name} (${preset.type})`;
+      select.appendChild(option);
+    });
+    
+    // プリセット変更時のイベントリスナーを追加
+    select.addEventListener('change', handlePresetChange);
+    
+  } catch (error) {
+    console.error('プリセット初期化エラー:', error);
+  }
+}
+
+/**
+ * プリセット変更時の処理
+ */
+function handlePresetChange(event) {
+  const presetId = event.target.value;
+  const editorSchemeInput = document.getElementById('editorScheme');
+  
+  if (presetId === 'custom') {
+    // カスタム設定の場合は入力を有効にする
+    editorSchemeInput.readOnly = false;
+    editorSchemeInput.style.backgroundColor = '';
+  } else {
+    try {
+      const presetManager = new EditorPresetManager();
+      const preset = presetManager.getPreset(presetId);
+      
+      // プリセットの値を設定
+      if (preset.scheme) {
+        editorSchemeInput.value = preset.scheme;
+      } else if (preset.command) {
+        editorSchemeInput.value = `command:${preset.command}`;
+      }
+      
+      // 読み取り専用にする
+      editorSchemeInput.readOnly = true;
+      editorSchemeInput.style.backgroundColor = '#f6f8fa';
+      
+    } catch (error) {
+      showMessage('プリセット設定エラー: ' + error.message, 'error');
+    }
+  }
+}
+
+/**
  * 初期化処理
  */
 function initialize() {
+  // エディタプリセットを初期化
+  initializeEditorPresets();
+  
   // 設定をロード
   loadSettings();
   
