@@ -58,7 +58,7 @@ class EditorPresetManager {
       },
       jetbrains_idea: {
         name: 'IntelliJ IDEA',
-        scheme: 'jetbrains://idea/navigate/reference?project={path}',
+        scheme: 'jetbrains://idea/navigate/reference?project=',
         type: PRESET_TYPES.TOOLBOX,
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
       },

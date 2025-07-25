@@ -5,7 +5,7 @@
  */
 async function loadSettings() {
   try {
-    const result = await chrome.storage.sync.get(['basePath', 'editorScheme']);
+    const result = await chrome.storage.sync.get(['basePath', 'editorScheme', 'editorPreset']);
     
     // ベースパスを設定
     const basePathInput = document.getElementById('basePath');
@@ -13,13 +13,23 @@ async function loadSettings() {
       basePathInput.value = result.basePath;
     }
     
-    // エディタスキームを設定
-    const editorSchemeInput = document.getElementById('editorScheme');
-    if (result.editorScheme) {
-      editorSchemeInput.value = result.editorScheme;
-    } else {
-      // デフォルト値を設定
-      editorSchemeInput.value = 'vscode://file';
+    // エディタプリセットを設定
+    const presetSelect = document.getElementById('editorPreset');
+    if (result.editorPreset) {
+      presetSelect.value = result.editorPreset;
+      // プリセット変更イベントを発火してUI更新
+      presetSelect.dispatchEvent(new Event('change'));
+    }
+    
+    // エディタスキームを設定（プリセットが設定されていない場合のみ）
+    if (!result.editorPreset) {
+      const editorSchemeInput = document.getElementById('editorScheme');
+      if (result.editorScheme) {
+        editorSchemeInput.value = result.editorScheme;
+      } else {
+        // デフォルト値を設定
+        editorSchemeInput.value = 'vscode://file';
+      }
     }
     
   } catch (error) {
@@ -34,6 +44,7 @@ async function saveSettings(formData) {
   try {
     const basePath = formData.get('basePath').trim();
     const editorScheme = formData.get('editorScheme').trim();
+    const editorPreset = formData.get('editorPreset');
     
     // 入力値の検証
     if (!basePath) {
@@ -50,7 +61,8 @@ async function saveSettings(formData) {
     // 設定を保存
     await chrome.storage.sync.set({
       basePath: normalizedBasePath,
-      editorScheme: editorScheme
+      editorScheme: editorScheme,
+      editorPreset: editorPreset
     });
     
     showMessage('設定を保存しました', 'success');
