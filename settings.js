@@ -296,6 +296,9 @@ function initialize() {
   // I18nManagerを初期化
   i18n = new I18nManager();
   
+  // 初期表示用にデフォルト言語で翻訳を即座に適用
+  updateUI();
+  
   // エディタプリセットを初期化
   initializeEditorPresets();
   
