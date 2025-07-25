@@ -13,6 +13,8 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 - Open extension popup from GitHub repository pages
 - Combine configured base path with repository name to open in local editor
 - Configure base path and editor URL scheme in settings page
+- **Editor presets**: Quick setup for popular editors (VS Code, Cursor, Windsurf, IntelliJ IDEA)
+- **Multi-language support**: Switch between Japanese and English in settings
 - **Keyboard shortcut support**: Use `Ctrl+Shift+K` (Windows/Linux) or `Command+Shift+K` (Mac) to quickly open repository in editor
 
 ### Installation
@@ -29,8 +31,10 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 1. After installing the extension, click the extension icon on any GitHub page
 2. Click the "Settings" button to open the settings page
 3. Configure the following settings:
+   - **Language**: Choose between Japanese (日本語) and English for the interface
    - **Base Path**: Local base path where repositories are located (e.g., `/Users/{username}/src/github.com/`)
-   - **Editor URL Scheme**: URL scheme for your editor (e.g., `vscode://file`)
+   - **Editor Preset**: Select from pre-configured popular editors or choose "Custom Settings"
+   - **Editor URL Scheme**: URL scheme for your editor (e.g., `vscode://file`) - auto-filled when using presets
 
 #### Opening a Repository
 
@@ -76,6 +80,10 @@ With the above configuration, when opening `https://github.com/{username}/github
 ├── popup.js               # Popup JavaScript
 ├── settings.html          # Settings page HTML
 ├── settings.js            # Settings page JavaScript
+├── editor-presets.js      # Editor preset management
+├── i18n.js                # Internationalization system
+├── background.js          # Background service worker
+├── test-*.js              # Test files
 ├── icons/                 # Icon files
 │   ├── icon16.png
 │   ├── icon32.png
@@ -83,6 +91,20 @@ With the above configuration, when opening `https://github.com/{username}/github
 │   └── icon128.png
 └── README.md              # This file
 ```
+
+#### Supported Editor Presets
+
+| Editor | Type | Status |
+|--------|------|--------|
+| Visual Studio Code | GUI | ✅ Supported |
+| Cursor | GUI | ⚠️ Unconfirmed |
+| Windsurf | Command | 🔧 Command Line |
+| IntelliJ IDEA | Toolbox | 🛠️ Toolbox Required |
+
+#### Language Support
+
+- **🇺🇸 English**: Full support
+- **🇯🇵 Japanese (日本語)**: Full support (Default)
 
 
 ---
@@ -96,6 +118,8 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 - GitHub のリポジトリページで拡張機能のポップアップを開く
 - 設定したベースパスとリポジトリ名を組み合わせて、ローカルのエディタで開く
 - 設定画面でベースパスとエディタの URL スキームを設定可能
+- **エディタプリセット**: 人気エディタ（VS Code、Cursor、Windsurf、IntelliJ IDEA）の素早い設定
+- **多言語対応**: 設定画面で日本語と英語を切り替え可能
 - **キーボードショートカット対応**: `Ctrl+Shift+K`（Windows/Linux）または `Command+Shift+K`（Mac）でリポジトリを素早くエディタで開く
 
 ### インストール方法
@@ -112,8 +136,10 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 1. 拡張機能をインストール後、任意の GitHub ページで拡張機能のアイコンをクリック
 2. 「設定」ボタンをクリックして設定画面を開く
 3. 以下の設定を行う：
+   - **言語**: インターフェース言語を日本語または English から選択
    - **ベースパス**: リポジトリが配置されているローカルのベースパス（例: `/Users/{username}/src/github.com/`）
-   - **エディタ URL スキーム**: 使用するエディタの URL スキーム（例: `vscode://file`）
+   - **エディタプリセット**: 事前設定された人気エディタから選択、または「カスタム設定」を選択
+   - **エディタ URL スキーム**: 使用するエディタの URL スキーム（例: `vscode://file`）- プリセット使用時は自動入力
 
 #### リポジトリを開く
 
@@ -159,6 +185,10 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 ├── popup.js               # ポップアップの JavaScript
 ├── settings.html          # 設定画面の HTML
 ├── settings.js            # 設定画面の JavaScript
+├── editor-presets.js      # エディタプリセット管理
+├── i18n.js                # 国際化システム
+├── background.js          # バックグラウンドサービスワーカー
+├── test-*.js              # テストファイル
 ├── icons/                 # アイコンファイル
 │   ├── icon16.png
 │   ├── icon32.png
@@ -166,4 +196,18 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 │   └── icon128.png
 └── README.md              # このファイル
 ```
+
+#### 対応エディタプリセット
+
+| エディタ | タイプ | 状況 |
+|---------|--------|------|
+| Visual Studio Code | GUI | ✅ サポート済み |
+| Cursor | GUI | ⚠️ 未確認 |
+| Windsurf | コマンド | 🔧 コマンドライン |
+| IntelliJ IDEA | Toolbox | 🛠️ Toolbox必須 |
+
+#### 言語サポート
+
+- **🇯🇵 日本語**: 完全対応（デフォルト）
+- **🇺🇸 English**: 完全対応
 
