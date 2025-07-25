@@ -158,6 +158,7 @@ function handlePresetChange(event) {
     // カスタム設定の場合は入力を有効にする
     editorSchemeInput.readOnly = false;
     editorSchemeInput.style.backgroundColor = '';
+    editorSchemeInput.placeholder = 'vscode://file';
   } else {
     try {
       const presetManager = new EditorPresetManager();
@@ -166,8 +167,10 @@ function handlePresetChange(event) {
       // プリセットの値を設定
       if (preset.scheme) {
         editorSchemeInput.value = preset.scheme;
+        editorSchemeInput.placeholder = preset.scheme;
       } else if (preset.command) {
         editorSchemeInput.value = `command:${preset.command}`;
+        editorSchemeInput.placeholder = 'コマンド実行';
       }
       
       // 読み取り専用にする

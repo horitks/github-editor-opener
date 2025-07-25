@@ -104,22 +104,42 @@ function testプリセットからエディタURLを構築できる() {
 }
 
 /**
- * テスト: Terminalプリセットでコマンドを構築できる
+ * テスト: Windsurfプリセットでコマンドを構築できる
  */
-function testTerminalプリセットでコマンドを構築できる() {
+function testWindsurfプリセットでコマンドを構築できる() {
   try {
     const presetManager = new EditorPresetManager();
-    const command = presetManager.buildCommand('terminal_mac', testRepoInfo, { basePath: testBasePath });
+    const command = presetManager.buildCommand('windsurf', testRepoInfo, { basePath: testBasePath });
     
     const expectedPath = '/Users/test/src/github.com/testuser/test-repo';
     const passed = command && command.includes(expectedPath);
     
-    logTestResult('Terminalプリセットでコマンドを構築できる', passed);
+    logTestResult('Windsurfプリセットでコマンドを構築できる', passed);
     if (!passed) {
       console.log(`  Command: ${command}`);
     }
   } catch (error) {
-    logTestResult('Terminalプリセットでコマンドを構築できる', false, error);
+    logTestResult('Windsurfプリセットでコマンドを構築できる', false, error);
+  }
+}
+
+/**
+ * テスト: Terminal系プリセットが無効化されている
+ */
+function testTerminal系プリセットが無効化されている() {
+  try {
+    const presetManager = new EditorPresetManager();
+    let errorOccurred = false;
+    
+    try {
+      presetManager.getPreset('terminal_mac');
+    } catch (error) {
+      errorOccurred = true;
+    }
+    
+    logTestResult('Terminal系プリセットが無効化されている', errorOccurred);
+  } catch (error) {
+    logTestResult('Terminal系プリセットが無効化されている', false, error);
   }
 }
 
@@ -168,7 +188,8 @@ function runAllTests() {
   testVSCodeプリセットを取得できる();
   test利用可能なプリセット一覧を取得できる();
   testプリセットからエディタURLを構築できる();
-  testTerminalプリセットでコマンドを構築できる();
+  testWindsurfプリセットでコマンドを構築できる();
+  testTerminal系プリセットが無効化されている();
   test現在のOS向けプリセットのみを取得できる();
   test無効なプリセットIDでエラーが発生する();
   

@@ -110,6 +110,7 @@ async function openInEditor(repoInfo) {
     const settings = await chrome.storage.sync.get({
       basePath: '',
       editorScheme: 'vscode://file',
+      editorPreset: '',
       openInNewWindow: false
     });
     
@@ -119,8 +120,16 @@ async function openInEditor(repoInfo) {
       throw new Error(validation.error);
     }
     
-    // エディタ URL を構築
-    const editorUrl = buildEditorUrl(repoInfo, settings);
+    let editorUrl;
+    
+    // プリセットが設定されている場合はプリセットを使用
+    if (settings.editorPreset && settings.editorPreset !== 'custom') {
+      const presetManager = new EditorPresetManager();
+      editorUrl = presetManager.buildEditorUrl(settings.editorPreset, repoInfo, settings);
+    } else {
+      // カスタム設定の場合は従来の方法を使用
+      editorUrl = buildEditorUrl(repoInfo, settings);
+    }
     
     // URL スキームを開く
     window.open(editorUrl, '_blank');

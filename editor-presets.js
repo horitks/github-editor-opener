@@ -16,9 +16,7 @@ const PLATFORMS = {
 const PRESET_TYPES = {
   GUI: 'gui',
   COMMAND: 'command',
-  TOOLBOX: 'toolbox',
-  TERMINAL: 'terminal',
-  TERMINAL_EDITOR: 'terminal_editor'
+  TOOLBOX: 'toolbox'
 };
 
 /**
@@ -61,24 +59,6 @@ class EditorPresetManager {
         scheme: 'jetbrains://idea/navigate/reference?project=',
         type: PRESET_TYPES.TOOLBOX,
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
-      },
-      terminal_mac: {
-        name: 'Terminal (macOS)',
-        command: 'osascript -e \'tell application "Terminal" to do script "cd {path}"\'',
-        type: PRESET_TYPES.TERMINAL,
-        platform: PLATFORMS.DARWIN
-      },
-      iterm2: {
-        name: 'iTerm2',
-        command: 'osascript -e \'tell application "iTerm" to create window with default profile command "cd {path}"\'',
-        type: PRESET_TYPES.TERMINAL,
-        platform: PLATFORMS.DARWIN
-      },
-      nvim_terminal: {
-        name: 'Neovim in Terminal',
-        command: 'osascript -e \'tell application "Terminal" to do script "cd {path} && nvim ."\'',
-        type: PRESET_TYPES.TERMINAL_EDITOR,
-        platform: PLATFORMS.DARWIN
       }
     };
   }
@@ -154,6 +134,7 @@ class EditorPresetManager {
     const fullPath = `${settings.basePath}${repoInfo.fullName}`;
     return preset.command.replace('{path}', fullPath);
   }
+
 
   /**
    * 現在のプラットフォームを取得する
