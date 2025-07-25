@@ -135,14 +135,7 @@ function initializeEditorPresets() {
     presets.forEach(preset => {
       const option = document.createElement('option');
       option.value = preset.id;
-      
-      // プリセットタイプに応じた表示
-      if (preset.type === 'copy_command') {
-        option.textContent = `${preset.name}`;
-      } else {
-        option.textContent = `${preset.name} (${preset.type})`;
-      }
-      
+      option.textContent = `${preset.name} (${preset.type})`;
       select.appendChild(option);
     });
     
@@ -172,10 +165,7 @@ function handlePresetChange(event) {
       const preset = presetManager.getPreset(presetId);
       
       // プリセットの値を設定
-      if (preset.type === 'copy_command') {
-        editorSchemeInput.value = `[コマンドコピー] ${preset.description}`;
-        editorSchemeInput.placeholder = 'コマンドをクリップボードにコピーします';
-      } else if (preset.scheme) {
+      if (preset.scheme) {
         editorSchemeInput.value = preset.scheme;
         editorSchemeInput.placeholder = preset.scheme;
       } else if (preset.command) {

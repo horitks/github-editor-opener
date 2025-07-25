@@ -16,10 +16,11 @@ const PLATFORMS = {
 const PRESET_TYPES = {
   GUI: 'gui',
   COMMAND: 'command',
-  TOOLBOX: 'toolbox',
-  TERMINAL: 'terminal',
-  TERMINAL_EDITOR: 'terminal_editor',
-  COPY_COMMAND: 'copy_command'
+  TOOLBOX: 'toolbox'
+  // Terminal系は技術的制限により無効化
+  // TERMINAL: 'terminal',
+  // TERMINAL_EDITOR: 'terminal_editor',
+  // COPY_COMMAND: 'copy_command'
 };
 
 /**
@@ -62,31 +63,32 @@ class EditorPresetManager {
         scheme: 'jetbrains://idea/navigate/reference?project=',
         type: PRESET_TYPES.TOOLBOX,
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
-      },
+      }
+      // Terminal系プリセットは技術的制限により無効化
+      // Chrome拡張ではURL schemeでのTerminal起動ができないため
+      /*
       terminal_mac: {
-        name: 'Terminal (macOS) - コマンドコピー',
-        command: 'osascript -e \'tell application "Terminal" to do script "cd {path}"\'',
-        type: PRESET_TYPES.COPY_COMMAND,
+        name: 'Terminal (macOS)',
+        description: '技術的制限により利用不可: Chrome拡張ではTerminal起動URL schemeが存在しません',
+        type: PRESET_TYPES.UNAVAILABLE,
         platform: PLATFORMS.DARWIN,
-        supported: SUPPORT_STATUS.COMMAND_LINE,
-        description: 'Terminalアプリでディレクトリを開くAppleScriptコマンドをクリップボードにコピーします'
+        supported: false
       },
       iterm2: {
-        name: 'iTerm2 - コマンドコピー',
-        command: 'osascript -e \'tell application "iTerm" to create window with default profile command "cd {path}"\'',
-        type: PRESET_TYPES.COPY_COMMAND,
+        name: 'iTerm2',
+        description: '技術的制限により利用不可: セキュリティ上の理由で2011年に機能削除済み',
+        type: PRESET_TYPES.UNAVAILABLE,
         platform: PLATFORMS.DARWIN,
-        supported: SUPPORT_STATUS.COMMAND_LINE,
-        description: 'iTerm2でディレクトリを開くAppleScriptコマンドをクリップボードにコピーします'
+        supported: false
       },
       nvim_terminal: {
-        name: 'Neovim in Terminal - コマンドコピー',
-        command: 'osascript -e \'tell application "Terminal" to do script "cd {path} && nvim ."\'',
-        type: PRESET_TYPES.COPY_COMMAND,
+        name: 'Neovim in Terminal',
+        description: '技術的制限により利用不可: Terminal起動が前提のため利用できません',
+        type: PRESET_TYPES.UNAVAILABLE,
         platform: PLATFORMS.DARWIN,
-        supported: SUPPORT_STATUS.COMMAND_LINE,
-        description: 'TerminalでNeovimを起動するAppleScriptコマンドをクリップボードにコピーします'
+        supported: false
       }
+      */
     };
   }
 
@@ -162,15 +164,8 @@ class EditorPresetManager {
     return preset.command.replace('{path}', fullPath);
   }
 
-  /**
-   * プリセットがコマンドコピータイプかを判定する
-   * @param {string} presetId - プリセットID
-   * @returns {boolean} コマンドコピータイプの場合true
-   */
-  isCopyCommandType(presetId) {
-    const preset = this.getPreset(presetId);
-    return preset.type === PRESET_TYPES.COPY_COMMAND;
-  }
+  // コマンドコピー機能は技術的制限により削除
+  // isCopyCommandType() メソッドは利用不可
 
   /**
    * 現在のプラットフォームを取得する

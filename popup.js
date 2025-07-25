@@ -120,21 +120,7 @@ async function openInEditor(repoInfo) {
       throw new Error(validation.error);
     }
     
-    // プリセットが設定されている場合の処理
-    if (settings.editorPreset && settings.editorPreset !== 'custom') {
-      const presetManager = new EditorPresetManager();
-      
-      // コマンドコピータイプの場合
-      if (presetManager.isCopyCommandType(settings.editorPreset)) {
-        const command = presetManager.buildCommand(settings.editorPreset, repoInfo, settings);
-        await copyToClipboard(command);
-        const preset = presetManager.getPreset(settings.editorPreset);
-        showMessage(`コマンドをクリップボードにコピーしました\n${preset.description}`, 'success');
-        return;
-      }
-    }
-    
-    // 通常のURL scheme処理
+    // エディタ URL を構築
     const editorUrl = buildEditorUrl(repoInfo, settings);
     
     // URL スキームを開く
@@ -145,24 +131,6 @@ async function openInEditor(repoInfo) {
     
   } catch (error) {
     showMessage(error.message, 'error');
-  }
-}
-
-/**
- * クリップボードにテキストをコピーする
- * @param {string} text - コピーするテキスト
- */
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch (error) {
-    // fallback: テキストエリアを使用
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
   }
 }
 
