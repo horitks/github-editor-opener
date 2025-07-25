@@ -167,6 +167,16 @@
             </div>
             
             <div class="form-group">
+                <label for="editorPreset">エディタプリセット</label>
+                <select id="editorPreset" name="editorPreset">
+                    <option value="custom">カスタム設定</option>
+                </select>
+                <div class="form-help">
+                    よく使われるエディタから選択できます。「カスタム設定」を選ぶと手動で設定できます。
+                </div>
+            </div>
+            
+            <div class="form-group">
                 <label for="editorScheme">エディタ URL スキーム</label>
                 <input type="text" id="editorScheme" name="editorScheme" placeholder="vscode://file" value="vscode://file">
                 <div class="form-help">
@@ -190,6 +200,7 @@
         </div>
     </div>
     
+    <script src="editor-presets.js"></script>
     <script src="settings.js"></script>
 </body>
 </html>
