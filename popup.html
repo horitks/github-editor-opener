@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Editor Opener</title>
+    <title data-i18n="popup.title">GitHub Editor Opener</title>
     <style>
         body {
             width: 300px;
@@ -97,11 +97,11 @@
 </head>
 <body>
     <div class="header">
-        <h1>GitHub Editor Opener</h1>
+        <h1 data-i18n="popup.title">GitHub Editor Opener</h1>
     </div>
     
     <div id="loading" class="loading">
-        読み込み中...
+        <span data-i18n="popup.loading">読み込み中...</span>
     </div>
     
     <div id="content" style="display: none;">
@@ -111,10 +111,10 @@
         </div>
         
         <div class="actions">
-            <button id="openInEditor" class="btn btn-primary">
+            <button id="openInEditor" class="btn btn-primary" data-i18n="popup.openInEditor">
                 エディタで開く
             </button>
-            <button id="openSettings" class="btn btn-secondary">
+            <button id="openSettings" class="btn btn-secondary" data-i18n="popup.settings">
                 設定
             </button>
         </div>
@@ -122,6 +122,7 @@
         <div id="error" class="error"></div>
     </div>
     
+    <script src="i18n.js"></script>
     <script src="editor-presets.js"></script>
     <script src="popup.js"></script>
 </body>

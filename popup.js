@@ -1,6 +1,11 @@
 // popup.js - GitHub Editor Opener のポップアップ機能
 
 /**
+ * グローバル変数
+ */
+let i18n;
+
+/**
  * エディタURL構築の設定定数
  */
 const EDITOR_CONFIG = {
@@ -66,7 +71,7 @@ function validateSettings(settings) {
   if (!settings.basePath) {
     return {
       isValid: false,
-      error: 'ベースパスが設定されていません。設定から設定してください。'
+      error: i18n.t('popup.errorNoBasePath')
     };
   }
   
@@ -81,16 +86,16 @@ async function getCurrentGitHubRepo() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
     if (!tab.url) {
-      throw new Error('有効なページが見つかりません');
+      throw new Error(i18n.t('popup.errorInvalidPage'));
     }
     
     if (!tab.url.includes('github.com')) {
-      throw new Error('GitHub のページではありません');
+      throw new Error(i18n.t('popup.errorNotGitHub'));
     }
     
     const repoInfo = extractRepoInfo(tab.url);
     if (!repoInfo) {
-      throw new Error('リポジトリページではありません');
+      throw new Error(i18n.t('popup.errorNotRepo'));
     }
     
     return {
@@ -135,7 +140,7 @@ async function openInEditor(repoInfo) {
     window.open(editorUrl, '_blank');
     
     // 成功メッセージを表示
-    showMessage('エディタで開きました', 'success');
+    showMessage(i18n.t('popup.openSuccess'), 'success');
     
   } catch (error) {
     showMessage(error.message, 'error');
@@ -171,9 +176,50 @@ function openSettings() {
 }
 
 /**
+ * UI言語を更新する
+ */
+function updateUI() {
+  // data-i18n属性を持つすべての要素を更新
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (key) {
+      element.textContent = i18n.t(key);
+    }
+  });
+}
+
+/**
+ * 言語設定をロードする
+ */
+async function loadLanguageSettings() {
+  try {
+    const result = await chrome.storage.sync.get(['language']);
+    if (result.language) {
+      i18n.setLanguage(result.language);
+    } else {
+      // デフォルト言語（日本語）を設定
+      i18n.setLanguage('ja');
+    }
+    updateUI();
+  } catch (error) {
+    console.error('Language settings load error:', error);
+    // エラーの場合はデフォルト言語を使用
+    i18n.setLanguage('ja');
+    updateUI();
+  }
+}
+
+/**
  * UI を初期化する
  */
 async function initializeUI() {
+  // I18nManagerを初期化
+  i18n = new I18nManager();
+  
+  // 言語設定をロード
+  await loadLanguageSettings();
+  
   document.getElementById('openSettings').addEventListener('click', openSettings);
 
   try {
