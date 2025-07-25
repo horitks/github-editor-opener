@@ -77,6 +77,21 @@ class EditorPresetManager {
   }
 
   /**
+   * 国際化対応のプリセット名を取得する
+   * @param {string} presetId - プリセットID
+   * @param {Object} i18n - 国際化マネージャー（オプション）
+   * @returns {string} プリセット名
+   */
+  getPresetDisplayName(presetId, i18n = null) {
+    const preset = this.getPreset(presetId);
+    if (i18n) {
+      const translatedName = i18n.t(`presets.${presetId}`);
+      return translatedName !== `presets.${presetId}` ? translatedName : preset.name;
+    }
+    return preset.name;
+  }
+
+  /**
    * 利用可能なプリセット一覧を取得する
    * @returns {Array} プリセット一覧
    */
