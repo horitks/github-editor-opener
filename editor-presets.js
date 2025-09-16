@@ -50,9 +50,9 @@ class EditorPresetManager {
       },
       windsurf: {
         name: 'Windsurf',
-        command: 'windsurf {path}',
-        type: PRESET_TYPES.COMMAND,
-        supported: SUPPORT_STATUS.COMMAND_LINE
+        scheme: 'windsurf://file',
+        type: PRESET_TYPES.GUI,
+        supported: SUPPORT_STATUS.SUPPORTED
       },
       jetbrains_idea: {
         name: 'IntelliJ IDEA',
