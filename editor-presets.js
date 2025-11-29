@@ -36,9 +36,9 @@ class EditorPresetManager {
   constructor() {
     // プリセット定義
     this.presets = {
-      vscode: {
-        name: 'Visual Studio Code',
-        scheme: 'vscode://file',
+      antigravity: {
+        name: 'Antigravity',
+        scheme: 'antigravity://file',
         type: PRESET_TYPES.GUI,
         supported: SUPPORT_STATUS.SUPPORTED
       },
@@ -48,23 +48,23 @@ class EditorPresetManager {
         type: PRESET_TYPES.GUI,
         supported: SUPPORT_STATUS.UNCONFIRMED
       },
-      windsurf: {
-        name: 'Windsurf',
-        scheme: 'windsurf://file',
-        type: PRESET_TYPES.GUI,
-        supported: SUPPORT_STATUS.SUPPORTED
-      },
-      antigravity: {
-        name: 'Antigravity',
-        scheme: 'antigravity://file',
-        type: PRESET_TYPES.GUI,
-        supported: SUPPORT_STATUS.SUPPORTED
-      },
       jetbrains_idea: {
         name: 'IntelliJ IDEA',
         scheme: 'jetbrains://idea/navigate/reference?project=',
         type: PRESET_TYPES.TOOLBOX,
         supported: SUPPORT_STATUS.TOOLBOX_REQUIRED
+      },
+      vscode: {
+        name: 'Visual Studio Code',
+        scheme: 'vscode://file',
+        type: PRESET_TYPES.GUI,
+        supported: SUPPORT_STATUS.SUPPORTED
+      },
+      windsurf: {
+        name: 'Windsurf',
+        scheme: 'windsurf://file',
+        type: PRESET_TYPES.GUI,
+        supported: SUPPORT_STATUS.SUPPORTED
       }
     };
   }

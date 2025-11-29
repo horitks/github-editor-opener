@@ -56,11 +56,11 @@ const TRANSLATIONS = {
 
     // エディタプリセット
     presets: {
-      vscode: 'Visual Studio Code',
-      cursor: 'Cursor',
-      windsurf: 'Windsurf',
       antigravity: 'Antigravity',
-      jetbrains_idea: 'IntelliJ IDEA'
+      cursor: 'Cursor',
+      jetbrains_idea: 'IntelliJ IDEA',
+      vscode: 'Visual Studio Code',
+      windsurf: 'Windsurf'
     },
 
     // プリセットタイプ
@@ -121,11 +121,11 @@ const TRANSLATIONS = {
 
     // Editor presets
     presets: {
-      vscode: 'Visual Studio Code',
-      cursor: 'Cursor',
-      windsurf: 'Windsurf',
       antigravity: 'Antigravity',
-      jetbrains_idea: 'IntelliJ IDEA'
+      cursor: 'Cursor',
+      jetbrains_idea: 'IntelliJ IDEA',
+      vscode: 'Visual Studio Code',
+      windsurf: 'Windsurf'
     },
 
     // Preset types

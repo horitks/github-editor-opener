@@ -98,7 +98,7 @@ With the above configuration, when opening `https://github.com/{username}/github
 |--------|------|--------|
 | Visual Studio Code | GUI | ✅ Supported |
 | Cursor | GUI | ⚠️ Unconfirmed |
-| Windsurf | Command | 🔧 Command Line |
+| Windsurf | GUI | ✅ Supported |
 | Antigravity | GUI | ✅ Supported |
 | IntelliJ IDEA | Toolbox | 🛠️ Toolbox Required |
 
@@ -204,7 +204,7 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 |---------|--------|------|
 | Visual Studio Code | GUI | ✅ サポート済み |
 | Cursor | GUI | ⚠️ 未確認 |
-| Windsurf | コマンド | 🔧 コマンドライン |
+| Windsurf | GUI | ✅ サポート済み |
 | Antigravity | GUI | ✅ サポート済み |
 | IntelliJ IDEA | Toolbox | 🛠️ Toolbox必須 |
 

@@ -83,45 +83,46 @@ function test利用可能なプリセット一覧を取得できる() {
 }
 
 /**
- * テスト: プリセットからエディタURLを構築できる
+ * ヘルパー関数: エディタURL構築のテスト
  */
-function testプリセットからエディタURLを構築できる() {
+function testBuildEditorUrl(presetId, expectedUrl, testName) {
   try {
     const presetManager = new EditorPresetManager();
-    const url = presetManager.buildEditorUrl('vscode', testRepoInfo, { basePath: testBasePath });
+    const url = presetManager.buildEditorUrl(presetId, testRepoInfo, { basePath: testBasePath });
+    const passed = url === expectedUrl;
 
-    const expected = 'vscode://file/Users/test/src/github.com/testuser/test-repo';
-    const passed = url === expected;
-
-    logTestResult('プリセットからエディタURLを構築できる', passed);
+    logTestResult(testName, passed);
     if (!passed) {
-      console.log(`  Expected: ${expected}`);
+      console.log(`  Expected: ${expectedUrl}`);
       console.log(`  Actual: ${url}`);
     }
   } catch (error) {
-    logTestResult('プリセットからエディタURLを構築できる', false, error);
+    logTestResult(testName, false, error);
   }
+}
+
+/**
+ * テスト: プリセットからエディタURLを構築できる
+ */
+function testプリセットからエディタURLを構築できる() {
+  const expected = 'vscode://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('vscode', expected, 'プリセットからエディタURLを構築できる');
 }
 
 /**
  * テスト: WindsurfプリセットでエディタURLを構築できる
  */
 function testWindsurfプリセットでエディタURLを構築できる() {
-  try {
-    const presetManager = new EditorPresetManager();
-    const url = presetManager.buildEditorUrl('windsurf', testRepoInfo, { basePath: testBasePath });
+  const expected = 'windsurf://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('windsurf', expected, 'WindsurfプリセットでエディタURLを構築できる');
+}
 
-    const expected = 'windsurf://file/Users/test/src/github.com/testuser/test-repo';
-    const passed = url === expected;
-
-    logTestResult('WindsurfプリセットでエディタURLを構築できる', passed);
-    if (!passed) {
-      console.log(`  Expected: ${expected}`);
-      console.log(`  Actual: ${url}`);
-    }
-  } catch (error) {
-    logTestResult('WindsurfプリセットでエディタURLを構築できる', false, error);
-  }
+/**
+ * テスト: AntigravityプリセットでエディタURLを構築できる
+ */
+function testAntigravityプリセットでエディタURLを構築できる() {
+  const expected = 'antigravity://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('antigravity', expected, 'AntigravityプリセットでエディタURLを構築できる');
 }
 
 /**
@@ -183,27 +184,6 @@ function testAntigravityプリセットを取得できる() {
     logTestResult('Antigravityプリセットを取得できる', passed);
   } catch (error) {
     logTestResult('Antigravityプリセットを取得できる', false, error);
-  }
-}
-
-/**
- * テスト: AntigravityプリセットでエディタURLを構築できる
- */
-function testAntigravityプリセットでエディタURLを構築できる() {
-  try {
-    const presetManager = new EditorPresetManager();
-    const url = presetManager.buildEditorUrl('antigravity', testRepoInfo, { basePath: testBasePath });
-
-    const expected = 'antigravity://file/Users/test/src/github.com/testuser/test-repo';
-    const passed = url === expected;
-
-    logTestResult('AntigravityプリセットでエディタURLを構築できる', passed);
-    if (!passed) {
-      console.log(`  Expected: ${expected}`);
-      console.log(`  Actual: ${url}`);
-    }
-  } catch (error) {
-    logTestResult('AntigravityプリセットでエディタURLを構築できる', false, error);
   }
 }
 
