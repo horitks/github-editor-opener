@@ -40,32 +40,7 @@ function testエディタプリセットマネージャが存在する() {
   }
 }
 
-/**
- * テスト: VSCodeプリセットを取得できる
- */
-function testVSCodeプリセットを取得できる() {
-  try {
-    const presetManager = new EditorPresetManager();
-    const preset = presetManager.getPreset('vscode');
 
-    const expected = {
-      name: 'Visual Studio Code',
-      scheme: 'vscode://file',
-      type: 'gui',
-      supported: true
-    };
-
-    const passed = preset &&
-                  preset.name === expected.name &&
-                  preset.scheme === expected.scheme &&
-                  preset.type === expected.type &&
-                  preset.supported === expected.supported;
-
-    logTestResult('VSCodeプリセットを取得できる', passed);
-  } catch (error) {
-    logTestResult('VSCodeプリセットを取得できる', false, error);
-  }
-}
 
 /**
  * テスト: 利用可能なプリセット一覧を取得できる
@@ -161,19 +136,12 @@ function test現在のOS向けプリセットのみを取得できる() {
 }
 
 /**
- * テスト: Antigravityプリセットを取得できる
+ * ヘルパー関数: プリセット取得のテスト
  */
-function testAntigravityプリセットを取得できる() {
+function testGetPreset(presetId, expected, testName) {
   try {
     const presetManager = new EditorPresetManager();
-    const preset = presetManager.getPreset('antigravity');
-
-    const expected = {
-      name: 'Antigravity',
-      scheme: 'antigravity://file',
-      type: 'gui',
-      supported: true
-    };
+    const preset = presetManager.getPreset(presetId);
 
     const passed = preset &&
                   preset.name === expected.name &&
@@ -181,10 +149,40 @@ function testAntigravityプリセットを取得できる() {
                   preset.type === expected.type &&
                   preset.supported === expected.supported;
 
-    logTestResult('Antigravityプリセットを取得できる', passed);
+    logTestResult(testName, passed);
+    if (!passed) {
+      console.log(`  Expected: ${JSON.stringify(expected)}`);
+      console.log(`  Actual: ${JSON.stringify(preset)}`);
+    }
   } catch (error) {
-    logTestResult('Antigravityプリセットを取得できる', false, error);
+    logTestResult(testName, false, error);
   }
+}
+
+/**
+ * テスト: VSCodeプリセットを取得できる
+ */
+function testVSCodeプリセットを取得できる() {
+  const expected = {
+    name: 'Visual Studio Code',
+    scheme: 'vscode://file',
+    type: 'gui',
+    supported: true
+  };
+  testGetPreset('vscode', expected, 'VSCodeプリセットを取得できる');
+}
+
+/**
+ * テスト: Antigravityプリセットを取得できる
+ */
+function testAntigravityプリセットを取得できる() {
+  const expected = {
+    name: 'Antigravity',
+    scheme: 'antigravity://file',
+    type: 'gui',
+    supported: true
+  };
+  testGetPreset('antigravity', expected, 'Antigravityプリセットを取得できる');
 }
 
 /**
