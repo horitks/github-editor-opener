@@ -54,6 +54,12 @@ class EditorPresetManager {
         type: PRESET_TYPES.GUI,
         supported: SUPPORT_STATUS.SUPPORTED
       },
+      antigravity: {
+        name: 'Antigravity',
+        scheme: 'antigravity://file',
+        type: PRESET_TYPES.GUI,
+        supported: SUPPORT_STATUS.SUPPORTED
+      },
       jetbrains_idea: {
         name: 'IntelliJ IDEA',
         scheme: 'jetbrains://idea/navigate/reference?project=',
@@ -123,7 +129,7 @@ class EditorPresetManager {
    */
   buildEditorUrl(presetId, repoInfo, settings) {
     const preset = this.getPreset(presetId);
-    
+
     if (!preset.scheme) {
       throw new Error(`プリセット ${presetId} はURL schemeをサポートしていません`);
     }
@@ -141,7 +147,7 @@ class EditorPresetManager {
    */
   buildCommand(presetId, repoInfo, settings) {
     const preset = this.getPreset(presetId);
-    
+
     if (!preset.command) {
       throw new Error(`プリセット ${presetId} はコマンド実行をサポートしていません`);
     }
@@ -160,12 +166,12 @@ class EditorPresetManager {
     if (typeof navigator !== 'undefined') {
       return this._detectPlatformFromNavigator(navigator.platform);
     }
-    
+
     // Node.js環境では process.platform を使用
     if (typeof process !== 'undefined') {
       return process.platform;
     }
-    
+
     return PLATFORMS.UNKNOWN;
   }
 
@@ -185,7 +191,7 @@ class EditorPresetManager {
 
 // CommonJS形式でエクスポート（テスト用）
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { 
+  module.exports = {
     EditorPresetManager,
     PLATFORMS,
     PRESET_TYPES,

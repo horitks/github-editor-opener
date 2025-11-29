@@ -25,7 +25,7 @@ const TRANSLATIONS = {
       errorNoBasePath: 'ベースパスが設定されていません。設定から設定してください。',
       errorInvalidPage: '有効なページが見つかりません'
     },
-    
+
     // 設定画面
     settings: {
       title: '設定',
@@ -53,29 +53,30 @@ const TRANSLATIONS = {
       validationErrorBasePath: 'ベースパスを入力してください',
       validationErrorScheme: 'エディタ URL スキームを入力してください'
     },
-    
+
     // エディタプリセット
     presets: {
       vscode: 'Visual Studio Code',
-      cursor: 'Cursor', 
+      cursor: 'Cursor',
       windsurf: 'Windsurf',
+      antigravity: 'Antigravity',
       jetbrains_idea: 'IntelliJ IDEA'
     },
-    
+
     // プリセットタイプ
     presetTypes: {
       gui: 'GUI',
       command: 'コマンド',
       toolbox: 'Toolbox'
     },
-    
+
     // 言語名
     languageNames: {
       ja: '日本語',
       en: 'English'
     }
   },
-  
+
   en: {
     // Popup screen
     popup: {
@@ -89,7 +90,7 @@ const TRANSLATIONS = {
       errorNoBasePath: 'Base path is not configured. Please configure it in settings.',
       errorInvalidPage: 'No valid page found'
     },
-    
+
     // Settings screen
     settings: {
       title: 'Settings',
@@ -117,22 +118,23 @@ const TRANSLATIONS = {
       validationErrorBasePath: 'Please enter base path',
       validationErrorScheme: 'Please enter editor URL scheme'
     },
-    
+
     // Editor presets
     presets: {
       vscode: 'Visual Studio Code',
       cursor: 'Cursor',
-      windsurf: 'Windsurf', 
+      windsurf: 'Windsurf',
+      antigravity: 'Antigravity',
       jetbrains_idea: 'IntelliJ IDEA'
     },
-    
+
     // Preset types
     presetTypes: {
       gui: 'GUI',
       command: 'Command',
       toolbox: 'Toolbox'
     },
-    
+
     // Language names
     languageNames: {
       ja: '日本語',
@@ -191,7 +193,7 @@ class I18nManager {
   t(key, params = {}) {
     const keys = key.split('.');
     let translation = this.translations[this.currentLanguage];
-    
+
     // ネストしたキーをたどる
     for (const k of keys) {
       if (translation && typeof translation === 'object' && k in translation) {
@@ -201,12 +203,12 @@ class I18nManager {
         return key;
       }
     }
-    
+
     // プレースホルダーを置換
     if (typeof translation === 'string' && params) {
       return this._replacePlaceholders(translation, params);
     }
-    
+
     return translation || key;
   }
 
@@ -236,7 +238,7 @@ class I18nManager {
 
 // CommonJS形式でエクスポート（テスト用）
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { 
+  module.exports = {
     I18nManager,
     LANGUAGES,
     TRANSLATIONS
