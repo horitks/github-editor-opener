@@ -13,7 +13,7 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 - Open extension popup from GitHub repository pages
 - Combine configured base path with repository name to open in local editor
 - Configure base path and editor URL scheme in settings page
-- **Editor presets**: Quick setup for popular editors (VS Code, Cursor, Windsurf, IntelliJ IDEA)
+- **Editor presets**: Quick setup for popular editors (VS Code, Cursor, Windsurf, Antigravity, IntelliJ IDEA)
 - **Multi-language support**: Switch between Japanese and English in settings
 - **Keyboard shortcut support**: Use `Ctrl+Shift+K` (Windows/Linux) or `Command+Shift+K` (Mac) to quickly open repository in editor
 
@@ -55,7 +55,7 @@ A Chrome extension that allows you to open GitHub repositories in your local edi
 - **Editor URL Scheme**: `vscode://file`
 - **GitHub URL**: `https://github.com/{username}/github-editor-opener`
 
-With the above configuration, when opening `https://github.com/{username}/github-editor-opener`,  
+With the above configuration, when opening `https://github.com/{username}/github-editor-opener`,
 `vscode://file/Users/{username}/src/github.com/{username}/github-editor-opener` will be executed.
 
 ### Required Permissions
@@ -98,7 +98,8 @@ With the above configuration, when opening `https://github.com/{username}/github
 |--------|------|--------|
 | Visual Studio Code | GUI | ✅ Supported |
 | Cursor | GUI | ⚠️ Unconfirmed |
-| Windsurf | Command | 🔧 Command Line |
+| Windsurf | GUI | ✅ Supported |
+| Antigravity | GUI | ✅ Supported |
 | IntelliJ IDEA | Toolbox | 🛠️ Toolbox Required |
 
 #### Language Support
@@ -118,7 +119,7 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 - GitHub のリポジトリページで拡張機能のポップアップを開く
 - 設定したベースパスとリポジトリ名を組み合わせて、ローカルのエディタで開く
 - 設定画面でベースパスとエディタの URL スキームを設定可能
-- **エディタプリセット**: 人気エディタ（VS Code、Cursor、Windsurf、IntelliJ IDEA）の素早い設定
+- **エディタプリセット**: 人気エディタ（VS Code、Cursor、Windsurf、Antigravity、IntelliJ IDEA）の素早い設定
 - **多言語対応**: 設定画面で日本語と英語を切り替え可能
 - **キーボードショートカット対応**: `Ctrl+Shift+K`（Windows/Linux）または `Command+Shift+K`（Mac）でリポジトリを素早くエディタで開く
 
@@ -160,7 +161,7 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 - **エディタ URL スキーム**: `vscode://file`
 - **GitHub URL**: `https://github.com/{username}/github-editor-opener`
 
-上記の設定で `https://github.com/{username}/github-editor-opener` を開いている場合、  
+上記の設定で `https://github.com/{username}/github-editor-opener` を開いている場合、
 `vscode://file/Users/{username}/src/github.com/{username}/github-editor-opener` が実行されます。
 
 ### 必要な権限
@@ -203,7 +204,8 @@ GitHub のリポジトリページから、ローカルエディタでリポジ�
 |---------|--------|------|
 | Visual Studio Code | GUI | ✅ サポート済み |
 | Cursor | GUI | ⚠️ 未確認 |
-| Windsurf | コマンド | 🔧 コマンドライン |
+| Windsurf | GUI | ✅ サポート済み |
+| Antigravity | GUI | ✅ サポート済み |
 | IntelliJ IDEA | Toolbox | 🛠️ Toolbox必須 |
 
 #### 言語サポート

@@ -40,32 +40,7 @@ function testエディタプリセットマネージャが存在する() {
   }
 }
 
-/**
- * テスト: VSCodeプリセットを取得できる
- */
-function testVSCodeプリセットを取得できる() {
-  try {
-    const presetManager = new EditorPresetManager();
-    const preset = presetManager.getPreset('vscode');
-    
-    const expected = {
-      name: 'Visual Studio Code',
-      scheme: 'vscode://file',
-      type: 'gui',
-      supported: true
-    };
-    
-    const passed = preset && 
-                  preset.name === expected.name &&
-                  preset.scheme === expected.scheme &&
-                  preset.type === expected.type &&
-                  preset.supported === expected.supported;
-    
-    logTestResult('VSCodeプリセットを取得できる', passed);
-  } catch (error) {
-    logTestResult('VSCodeプリセットを取得できる', false, error);
-  }
-}
+
 
 /**
  * テスト: 利用可能なプリセット一覧を取得できる
@@ -74,7 +49,7 @@ function test利用可能なプリセット一覧を取得できる() {
   try {
     const presetManager = new EditorPresetManager();
     const presets = presetManager.getAvailablePresets();
-    
+
     const passed = Array.isArray(presets) && presets.length > 0;
     logTestResult('利用可能なプリセット一覧を取得できる', passed);
   } catch (error) {
@@ -83,44 +58,46 @@ function test利用可能なプリセット一覧を取得できる() {
 }
 
 /**
- * テスト: プリセットからエディタURLを構築できる
+ * ヘルパー関数: エディタURL構築のテスト
  */
-function testプリセットからエディタURLを構築できる() {
+function testBuildEditorUrl(presetId, expectedUrl, testName) {
   try {
     const presetManager = new EditorPresetManager();
-    const url = presetManager.buildEditorUrl('vscode', testRepoInfo, { basePath: testBasePath });
-    
-    const expected = 'vscode://file/Users/test/src/github.com/testuser/test-repo';
-    const passed = url === expected;
-    
-    logTestResult('プリセットからエディタURLを構築できる', passed);
+    const url = presetManager.buildEditorUrl(presetId, testRepoInfo, { basePath: testBasePath });
+    const passed = url === expectedUrl;
+
+    logTestResult(testName, passed);
     if (!passed) {
-      console.log(`  Expected: ${expected}`);
+      console.log(`  Expected: ${expectedUrl}`);
       console.log(`  Actual: ${url}`);
     }
   } catch (error) {
-    logTestResult('プリセットからエディタURLを構築できる', false, error);
+    logTestResult(testName, false, error);
   }
 }
 
 /**
- * テスト: Windsurfプリセットでコマンドを構築できる
+ * テスト: プリセットからエディタURLを構築できる
  */
-function testWindsurfプリセットでコマンドを構築できる() {
-  try {
-    const presetManager = new EditorPresetManager();
-    const command = presetManager.buildCommand('windsurf', testRepoInfo, { basePath: testBasePath });
-    
-    const expectedPath = '/Users/test/src/github.com/testuser/test-repo';
-    const passed = command && command.includes(expectedPath);
-    
-    logTestResult('Windsurfプリセットでコマンドを構築できる', passed);
-    if (!passed) {
-      console.log(`  Command: ${command}`);
-    }
-  } catch (error) {
-    logTestResult('Windsurfプリセットでコマンドを構築できる', false, error);
-  }
+function testプリセットからエディタURLを構築できる() {
+  const expected = 'vscode://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('vscode', expected, 'プリセットからエディタURLを構築できる');
+}
+
+/**
+ * テスト: WindsurfプリセットでエディタURLを構築できる
+ */
+function testWindsurfプリセットでエディタURLを構築できる() {
+  const expected = 'windsurf://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('windsurf', expected, 'WindsurfプリセットでエディタURLを構築できる');
+}
+
+/**
+ * テスト: AntigravityプリセットでエディタURLを構築できる
+ */
+function testAntigravityプリセットでエディタURLを構築できる() {
+  const expected = 'antigravity://file/Users/test/src/github.com/testuser/test-repo';
+  testBuildEditorUrl('antigravity', expected, 'AntigravityプリセットでエディタURLを構築できる');
 }
 
 /**
@@ -130,13 +107,13 @@ function testTerminal系プリセットが無効化されている() {
   try {
     const presetManager = new EditorPresetManager();
     let errorOccurred = false;
-    
+
     try {
       presetManager.getPreset('terminal_mac');
     } catch (error) {
       errorOccurred = true;
     }
-    
+
     logTestResult('Terminal系プリセットが無効化されている', errorOccurred);
   } catch (error) {
     logTestResult('Terminal系プリセットが無効化されている', false, error);
@@ -150,12 +127,62 @@ function test現在のOS向けプリセットのみを取得できる() {
   try {
     const presetManager = new EditorPresetManager();
     const presets = presetManager.getPresetsForCurrentPlatform();
-    
+
     const passed = Array.isArray(presets) && presets.length > 0;
     logTestResult('現在のOS向けプリセットのみを取得できる', passed);
   } catch (error) {
     logTestResult('現在のOS向けプリセットのみを取得できる', false, error);
   }
+}
+
+/**
+ * ヘルパー関数: プリセット取得のテスト
+ */
+function testGetPreset(presetId, expected, testName) {
+  try {
+    const presetManager = new EditorPresetManager();
+    const preset = presetManager.getPreset(presetId);
+
+    const passed = preset &&
+                  preset.name === expected.name &&
+                  preset.scheme === expected.scheme &&
+                  preset.type === expected.type &&
+                  preset.supported === expected.supported;
+
+    logTestResult(testName, passed);
+    if (!passed) {
+      console.log(`  Expected: ${JSON.stringify(expected)}`);
+      console.log(`  Actual: ${JSON.stringify(preset)}`);
+    }
+  } catch (error) {
+    logTestResult(testName, false, error);
+  }
+}
+
+/**
+ * テスト: VSCodeプリセットを取得できる
+ */
+function testVSCodeプリセットを取得できる() {
+  const expected = {
+    name: 'Visual Studio Code',
+    scheme: 'vscode://file',
+    type: 'gui',
+    supported: true
+  };
+  testGetPreset('vscode', expected, 'VSCodeプリセットを取得できる');
+}
+
+/**
+ * テスト: Antigravityプリセットを取得できる
+ */
+function testAntigravityプリセットを取得できる() {
+  const expected = {
+    name: 'Antigravity',
+    scheme: 'antigravity://file',
+    type: 'gui',
+    supported: true
+  };
+  testGetPreset('antigravity', expected, 'Antigravityプリセットを取得できる');
 }
 
 /**
@@ -165,13 +192,13 @@ function test無効なプリセットIDでエラーが発生する() {
   try {
     const presetManager = new EditorPresetManager();
     let errorOccurred = false;
-    
+
     try {
       presetManager.getPreset('invalid_preset');
     } catch (error) {
       errorOccurred = true;
     }
-    
+
     logTestResult('無効なプリセットIDでエラーが発生する', errorOccurred);
   } catch (error) {
     logTestResult('無効なプリセットIDでエラーが発生する', false, error);
@@ -183,16 +210,18 @@ function test無効なプリセットIDでエラーが発生する() {
  */
 function runAllTests() {
   console.log('=== エディタプリセット機能テスト開始 ===');
-  
+
   testエディタプリセットマネージャが存在する();
   testVSCodeプリセットを取得できる();
   test利用可能なプリセット一覧を取得できる();
   testプリセットからエディタURLを構築できる();
-  testWindsurfプリセットでコマンドを構築できる();
+  testWindsurfプリセットでエディタURLを構築できる();
+  testAntigravityプリセットを取得できる();
+  testAntigravityプリセットでエディタURLを構築できる();
   testTerminal系プリセットが無効化されている();
   test現在のOS向けプリセットのみを取得できる();
   test無効なプリセットIDでエラーが発生する();
-  
+
   console.log('=== テスト終了 ===');
 }
 
